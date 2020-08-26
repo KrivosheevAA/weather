@@ -77,6 +77,24 @@ main {
 .weather__block {
   text-align: center;
   border: 1px solid grey;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  min-height: 250px;
+  width: 500px;
+  margin: 0 auto;
+}
+
+.weather__degree {
+  padding-top: 25px;
+}
+
+.weather__disclaimer {
+  padding-top: 25px;
+}
+
+.weather__city {
+  text-align: center;
 }
 
 .footer {

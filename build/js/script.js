@@ -5,21 +5,26 @@ fetch('http://api.openweathermap.org/data/2.5/group?id=524901,703448,498817&unit
     .then(function (data) {
         console.log(data);
           let weatherCity = document.querySelector('.weather__city');
-          let weatherDegree = document.querySelector('.weather__degree')
-          weatherCity.addEventListener('change', (e) => {
-            for (let key in list) {
-              console.log(list);
-            }
+          let weatherDegree = document.querySelector('.weather__degree');
+          let weatherDisclaimer = document.querySelector('.weather__disclaimer');
+          let weatherIcon = document.querySelector('.weather__icon');
 
+          weatherCity.addEventListener('change', function() {
+                for (let key in data) {
+                    for (let i = 0; i < data[key].length; i++) {
+                        if (weatherCity.value == data[key][i].id) {
+                            weatherDegree.innerHTML = Math.round(data[key][i].main.temp) + '&deg;';
+                            weatherDisclaimer.textContent = data[key][i].weather[0]['description'];
+                            weatherIcon.innerHTML = `<img src="https://openweathermap.org/img/wn/${data[key][i].weather[0]['icon']}@2x.png">`;
+                        } else if (weatherCity.value == '') {
+                            weatherDegree.innerHTML = '';
+                            weatherDisclaimer.textContent = '';
+                            weatherIcon.innerHTML = '';
+                        }
+                    }
+                }
           })
-          weatherDegree.innerHTML = Math.round(data.main.temp - 273) + '&deg;';
-
-        // document.querySelector('.weather__city').value.textContent = data.name;
-        // document.querySelector('.weather__degree').innerHTML = Math.round(data.main.temp - 273) + '&deg;';
-        // document.querySelector('.weather__disclaimer').textContent = data.weather[0]['description'];
-        // document.querySelector('.weather__icon').innerHTML = `<img src="https://openweathermap.org/img/wn/${data.weather[0]['icon']}@2x.png">`;
     })
     .catch(function () {
         // catch any errors
     });
-
